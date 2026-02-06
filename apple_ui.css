@@ -1,0 +1,299 @@
+/* Pro Medical OS - Ultra Interactive & Animated Design */
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;700&family=Inter:wght@400;600;800&display=swap');
+
+:root {
+    --bg-light: #f4f7fa;
+    --bg-dark: #09090b;
+    --card-light: rgba(255, 255, 255, 0.7);
+    --card-dark: rgba(24, 24, 27, 0.8);
+    --primary: #007aff;
+    --success: #34c759;
+    --warning: #ff9500;
+    --danger: #ff3b30;
+    --accent-gradient: linear-gradient(135deg, #007aff, #5856d6);
+    --glass-bg: rgba(255, 255, 255, 0.4);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --shadow-premium: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] {
+    --bg: #000000;
+    --text: #ffffff;
+    --card: rgba(30, 30, 32, 0.70);
+    --border: rgba(255, 255, 255, 0.2);
+    --primary: #409cff;
+    /* Brighter Blue */
+    --section-bg: rgba(30, 30, 32, 0.5);
+}
+
+[data-theme="light"] {
+    --bg: var(--bg-light);
+    --text: #1d1d1f;
+    --card: rgba(255, 255, 255, 0.85);
+    --border: rgba(0, 0, 0, 0.08);
+    --section-bg: rgba(255, 255, 255, 0.6);
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', 'Tajawal', sans-serif;
+    transition: background-color 0.4s ease, color 0.4s ease;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Force Dark Mode Override for Bootstrap Classes */
+[data-theme="dark"] .bg-white {
+    background-color: var(--card) !important;
+    color: #ffffff !important;
+    border: 1px solid var(--border) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5) !important;
+    /* Deeper shadow */
+}
+
+[data-theme="dark"] .bg-light {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    color: #ffffff !important;
+}
+
+[data-theme="dark"] .text-muted {
+    color: rgba(255, 255, 255, 0.75) !important;
+    /* Much clearer muted text */
+}
+
+[data-theme="dark"] .text-dark {
+    color: #ffffff !important;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+    /* Subtle glow for headers */
+}
+
+/* Enhanced Icons in Dark Mode */
+[data-theme="dark"] i {
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.3));
+    /* Icon Glow */
+}
+
+[data-theme="dark"] .glass-card,
+[data-theme="dark"] .premium-card {
+    background: var(--card) !important;
+    border: 1px solid var(--border) !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4) !important;
+}
+
+/* Moving Mesh Background (Now More Subtle & Elegant) */
+.mesh-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    background: var(--bg);
+    transition: background 0.5s ease;
+}
+
+.mesh-bg::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 140%;
+    height: 140%;
+    background: radial-gradient(circle at 30% 30%, rgba(10, 132, 255, 0.15) 0%, transparent 45%),
+        radial-gradient(circle at 70% 70%, rgba(94, 92, 230, 0.12) 0%, transparent 45%);
+    transform: translate(-50%, -50%);
+    animation: rotateBg 40s linear infinite;
+    filter: blur(60px);
+}
+
+@keyframes rotateBg {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+/* Floating Glass Nav */
+.apple-nav {
+    background: rgba(255, 255, 255, 0.05);
+    /* Unified translucent base */
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    padding: 10px 25px;
+    margin: 20px auto;
+    max-width: 900px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+[data-theme="dark"] .apple-nav {
+    background: rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+
+/* Tiny Interactive Tiles (The "Pulse" Effect) */
+.neo-tile {
+    background: var(--card);
+    backdrop-filter: blur(25px);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 12px;
+    text-align: center;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    cursor: pointer;
+    text-decoration: none !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100px;
+    position: relative;
+    overflow: hidden;
+}
+
+.neo-tile::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--accent-gradient);
+    opacity: 0;
+    transition: 0.3s;
+    z-index: -1;
+}
+
+.neo-tile:hover {
+    transform: translateY(-5px) scale(1.03);
+    color: white !important;
+    border-color: transparent;
+    box-shadow: 0 15px 35px rgba(0, 122, 255, 0.25);
+}
+
+.neo-tile:hover::before {
+    opacity: 1;
+}
+
+.neo-tile i {
+    font-size: 1.6rem;
+    margin-bottom: 8px;
+    color: var(--primary);
+    transition: 0.3s;
+    /* Basic Icon Animation */
+}
+
+/* Icon Animations */
+@keyframes floatIcon {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-5px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+@keyframes pulseIcon {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.1);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.neo-tile:hover i {
+    color: white !important;
+    transform: scale(1.1);
+    animation: floatIcon 2s ease-in-out infinite;
+}
+
+.icon-box i {
+    animation: pulseIcon 3s infinite ease-in-out;
+}
+
+
+.neo-tile span {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: var(--text);
+    transition: 0.3s;
+}
+
+.neo-tile:hover span {
+    color: white !important;
+}
+
+/* Status indicator on Tile */
+.tile-count {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    font-size: 0.65rem;
+    font-weight: 800;
+    padding: 3px 7px;
+    border-radius: 12px;
+    background: var(--primary);
+    color: white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Workflow Step Animation */
+.step-move {
+    animation: flowRight 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes flowRight {
+    0% {
+        transform: translateX(-30px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Form Styling */
+.apple-form-control {
+    background: var(--section-bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 14px;
+    transition: 0.3s;
+    color: var(--text);
+}
+
+[data-theme="dark"] .apple-form-control {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.15);
+    color: white;
+}
+
+.apple-form-control:focus {
+    background: var(--bg);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(10, 132, 255, 0.15);
+    outline: none;
+}
