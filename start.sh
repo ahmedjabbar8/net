@@ -10,10 +10,6 @@ mkdir -p "$MYSQL_DATA" "$MYSQL_RUN" "$MYSQL_LOG"
 pkill -f mysqld 2>/dev/null
 sleep 1
 
-if [ ! -f "$MYSQL_DATA/ibdata1" ]; then
-    echo "Initializing MariaDB data directory..."
-fi
-
 mysqld --datadir="$MYSQL_DATA" \
        --socket="$MYSQL_SOCK" \
        --port=3306 \
@@ -40,13 +36,14 @@ if ! mysql -h 127.0.0.1 -P 3306 -e "SELECT 1" > /dev/null 2>&1; then
     exit 1
 fi
 
-DB_EXISTS=$(mysql -h 127.0.0.1 -P 3306 -N -e "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME='HospitalSystem'" 2>/dev/null)
-if [ -z "$DB_EXISTS" ]; then
-    echo "Setting up HospitalSystem database..."
+TABLE_COUNT=$(mysql -h 127.0.0.1 -P 3306 -N -e "SELECT COUNT(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='HospitalSystem'" 2>/dev/null)
+if [ -z "$TABLE_COUNT" ] || [ "$TABLE_COUNT" -lt 10 ]; then
+    echo "Setting up HospitalSystem database (tables: ${TABLE_COUNT:-0})..."
+    mysql -h 127.0.0.1 -P 3306 -e "DROP DATABASE IF EXISTS HospitalSystem;" 2>/dev/null
     mysql -h 127.0.0.1 -P 3306 < setup_database.sql
     echo "Database setup complete!"
 else
-    echo "Database HospitalSystem already exists."
+    echo "Database HospitalSystem ready ($TABLE_COUNT tables)."
 fi
 
 mkdir -p _suite/uploads/patients

@@ -19,3 +19,19 @@
 /fuel/app/logs/*/*/*
 /fuel/app/cache/*/*
 /fuel/app/config/crypt.php
+
+# PHP
+vendor/
+composer.lock
+*.phar
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Uploads
+_suite/uploads/patients/*
+!_suite/uploads/patients/.gitkeep
+
+# Logs
+*.log
